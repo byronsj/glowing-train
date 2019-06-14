@@ -35,7 +35,7 @@ output * bg /home/one/Pictures/green_girl.jpg fill
 # Example configuration:
 #
  exec swayidle -w \
-          timeout 300 'swaylock -f -i /home//one/Pictures/blue_girl.jpg' \
+          timeout 300 'swaylock -f -i /home/one/Pictures/blue_girl.jpg' \
           timeout 600 'swaymsg "output * dpms off"' \
                resume 'swaymsg "output * dpms on"' \
           before-sleep 'swaylock -f -i /home/one/Pictures/blue_girl.jpg' \
