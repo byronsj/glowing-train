@@ -21,9 +21,11 @@ set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
 ### Output configuration
 #
-# Default wallpaper (more resolutions are available in @datadir@/backgrounds/sway/)
-output * bg /home/one/Pictures/green_girl.jpg fill
-#
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output * bg /usr/share/backgrounds/sway/Sway_Wallpaper_Blue_1920x1080.png fill
+
+output * bg /home/one/Pictures/wallpaper.jpg fill
+
 # Example configuration:
 #
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
@@ -34,11 +36,11 @@ output * bg /home/one/Pictures/green_girl.jpg fill
 #
 # Example configuration:
 #
- exec swayidle -w \
-          timeout 300 'swaylock -f -i /home/one/Pictures/blue_girl.jpg' \
-          timeout 600 'swaymsg "output * dpms off"' \
-               resume 'swaymsg "output * dpms on"' \
-          before-sleep 'swaylock -f -i /home/one/Pictures/blue_girl.jpg' \
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' \
+#               resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
 #
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
@@ -47,47 +49,47 @@ output * bg /home/one/Pictures/green_girl.jpg fill
 ### Input configuration
 #
 # Example configuration:
- 
-#    input "2:14:SynPS/Synaptics_TM3127-001" 
-    input "1739:0:Synaptics_TM3127-001" {
-        dwt enabled
-        tap enabled
-        scroll_method edge
-	natural_scroll disabled
+#
+   input "1267:226:Elan_Touchpad" {
+       dwt enabled
+       tap enabled
+       scroll_method edge
+       natural_scroll disabled
    }
- 
+
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
 
 ### Key bindings
-#
-#Sway audio and brightness keys 
+#Sway audio and brightness keys
 
- bindsym XF86AudioRaiseVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%
- bindsym XF86AudioLowerVolume exec pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5%
- bindsym XF86AudioMute exec pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
- bindsym XF86MonBrightnessDown exec light -U 5
- bindsym XF86MonBrightnessUp exec light -A 5
+ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+ bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+ bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+ # user must be added to groupes "video" and "input" for brightness to work.
+ bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+ bindsym XF86MonBrightnessUp exec brightnessctl set +5%
 
-#
-#
+
 #
 # Basics:
 #
-#
-#
-#start apps
-	exec --no-startup-id redshift -l 28.1113614:153.4616005
-	bindsym $mod+p exec kodi
-	bindsym $mod+c exec chromium
-	bindsym $mod+n exec pcmanfm
-	bindsym $mod+m exec brewtarget
+	exec --no-startup-id udiskie
+	#exec --no-startup-id redshift -l 28.1113614:153.4616005
+        bindsym $mod+p exec kodi
+        bindsym $mod+c exec chromium
+        bindsym $mod+n exec pcmanfm
+        bindsym $mod+i exec brewtarget
+    	bindsym $mod+o exec libreoffice
+        bindsym $mod+m exec code
+        bindsym $mod+shift+p exec keepass
 
     # Start a terminal
     bindsym $mod+Return exec $term
 
     # Kill focused window
-    bindsym $mod+Shift+q kill
+    bindsym $mod+q kill
 
     # Start your launcher
     bindsym $mod+d exec $menu
@@ -180,8 +182,6 @@ output * bg /home/one/Pictures/green_girl.jpg fill
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
-
-	default_border pixel 1
 #
 # Scratchpad:
 #
@@ -219,6 +219,12 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
+
+# Window borders
+
+   default_border none
+
+
 #
 # Status Bar:
 #
@@ -228,17 +234,16 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    #status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
-    
-      status_command i3status
-      font Source Code Pro Medium Italic 9 
+   # status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+		
+	status_command i3status
 
-	
     colors {
         statusline #ffffff
-        background #1b2b17
+        background #323232
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
+	mode hide
 }
 
-include @sysconfdir@/sway/config.d/*
+include /etc/sway/config.d/*
