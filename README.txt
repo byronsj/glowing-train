@@ -1,2 +1,2 @@
-sync from working dir with
-$ rsync --exclude ".git/" . ~ 
+rync from working dir with
+$ rsync -r --exclude ".git/" . ~ 
