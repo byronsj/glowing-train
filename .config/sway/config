@@ -76,7 +76,7 @@ output * bg /home/one/Pictures/wallpaper.jpg fill
 # Basics:
 #
 	exec --no-startup-id udiskie
-	exec --no-startup-id redshift -l 28.1113614:153.4616005
+	#exec --no-startup-id redshift -l 28.1113614:153.4616005
         bindsym $mod+p exec kodi
         bindsym $mod+c exec chromium
         bindsym $mod+n exec pcmanfm
